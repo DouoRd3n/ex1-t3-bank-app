@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(locations = {"classpath:application-context.xml", "classpath:test-clients.xml"})
+@SpringJUnitConfig(locations = {"classpath:test-clients.xml"})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BankApplicationTask3Tests {
@@ -33,11 +33,11 @@ public class BankApplicationTask3Tests {
     private ClientRepository repository;
 
     @Autowired
-    @Qualifier("savingAccount1")
+    @Qualifier("savingAccount")
     private SavingAccount savingAccount1;
 
     @Autowired
-    @Qualifier("checkingAccount1")
+    @Qualifier("checkingAccount")
     private CheckingAccount checkingAccount1;
 
     @Autowired
@@ -45,7 +45,7 @@ public class BankApplicationTask3Tests {
     private Client client1;
 
     @Autowired
-    @Qualifier("checkingAccount2")
+    @Qualifier("checkingAccountClient2")
     private CheckingAccount checkingAccount2;
 
     @Autowired
@@ -53,6 +53,7 @@ public class BankApplicationTask3Tests {
     private Client client2;
 
     @Autowired
+
     private PropertySourcesPlaceholderConfigurer placeholderConfigurer;
 
     @BeforeEach
@@ -76,8 +77,8 @@ public class BankApplicationTask3Tests {
         PropertySource<?> localProperties = placeholderConfigurer.getAppliedPropertySources().get("localProperties");
         assertNotNull(localProperties, "You should configure PropertySourcesPlaceholderConfigurer bean");
 
-        assertEquals("Jonny Bravo", localProperties.getProperty("client1"));
-        assertEquals("Adam Budzinski", localProperties.getProperty("client2"));
+        assertEquals("Jonny Bravo", localProperties.getProperty("client1.name"));
+        assertEquals("Adam Budzinski", localProperties.getProperty("client2.name"));
     }
 
     @Test

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="application-context.xml"/>
+
+    <bean id="client1" class="com.luxoft.bankapp.model.Client">
+        <property name="name" value="${client1.name}"/>
+        <property name="gender" value="MALE"/>
+        <property name="repository" ref="repository"/>
+        <property name="city" value="${client1.sity}"/>
+        <property name="accounts" >
+            <list>
+               <ref bean="savingAccount"/>
+                <ref bean="checkingAccount"/>
+            </list>
+        </property>
+    </bean>
+
+
+
+
+    <bean id="savingAccount" class="com.luxoft.bankapp.model.SavingAccount">
+        <constructor-arg name="initialBalance" value="${client1.balance}"/>
+    </bean>
+
+    <bean id="checkingAccount" class="com.luxoft.bankapp.model.CheckingAccount">
+        <constructor-arg name="overdraft" value="${client1.overdraft}"/>
+    </bean>
+
+    <bean id="client2" class="com.luxoft.bankapp.model.Client">
+        <property name="name" value="${client2.name}"/>
+        <property name="gender" value="MALE"/>
+        <property name="repository" ref="repository"/>
+        <property name="city" value="${client2.sity}"/>
+        <property name="accounts" >
+            <list>
+                <ref bean="checkingAccountClient2"/>
+
+            </list>
+        </property>
+    </bean>
+
+
+<!--    <bean id="savingAccountClient2" class="com.luxoft.bankapp.model.SavingAccount">-->
+<!--        <constructor-arg name="initialBalance" value="${client2.balance}"/>-->
+<!--    </bean>-->
+
+    <bean id="checkingAccountClient2" class="com.luxoft.bankapp.model.CheckingAccount">
+        <constructor-arg name="overdraft" value="${client2.overdraft}"/>
+    </bean>
+
+
+</beans>
